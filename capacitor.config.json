@@ -1,0 +1,8 @@
+{
+  "appId": "com.yourfamily.waypointledger",
+  "appName": "Waypoint Ledger",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
