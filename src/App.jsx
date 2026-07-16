@@ -1868,7 +1868,6 @@ function WaypointLedger({ session }) {
         )}
 
         <div style={{ marginTop: 6, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-          <button onClick={() => setShowDeleteAccount(true)} style={{ background: "none", border: "none", cursor: "pointer", color: C.creamDim, fontSize: 10.5, textDecoration: "underline", padding: 0 }}>Delete account & all data</button>
           <label style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 10.5, color: C.creamDim }}>
             Currency:
             <select
@@ -1882,13 +1881,13 @@ function WaypointLedger({ session }) {
         </div>
 
         {/* Stat strip */}
-        <div style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 12, marginTop: 20 }}>
           {[
             { label: `Trips ${yearNow}`, value: trips.filter((t) => new Date(t.startDate).getFullYear() === yearNow).length },
             { label: `Spent ${yearNow}`, value: fmtMoney(spentThisYear, data.currency || "USD") },
             { label: `PTO used ${yearNow}`, value: `${fmtDays(ptoUsedThisYear)} days` },
           ].map((s) => (
-            <div key={s.label} style={{ background: C.bgAlt, border: `1px solid ${C.bgAlt2}`, borderRadius: 10, padding: "10px 16px", minWidth: 120 }}>
+            <div key={s.label} style={{ background: C.bgAlt, border: `1px solid ${C.bgAlt2}`, borderRadius: 10, padding: "10px 16px" }}>
               <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 18, fontWeight: 600, color: C.brass }}>{s.value}</div>
               <div style={{ fontSize: 10.5, color: C.creamDim, textTransform: "uppercase", letterSpacing: "0.06em" }}>{s.label}</div>
             </div>
@@ -1939,6 +1938,12 @@ function WaypointLedger({ session }) {
             </div>
           </>
         )}
+
+        <div style={{ marginTop: 48, paddingTop: 20, borderTop: `1px solid ${C.bgAlt2}`, textAlign: "center" }}>
+          <button onClick={() => setShowDeleteAccount(true)} style={{ background: "none", border: "none", cursor: "pointer", color: C.creamDim, fontSize: 11, textDecoration: "underline", padding: 0, opacity: 0.7 }}>
+            Delete account & all data
+          </button>
+        </div>
       </div>
 
       {showAddMember && <AddMemberModal onClose={() => setShowAddMember(false)} onAdd={(m) => { addMember(m); setShowAddMember(false); }} />}
