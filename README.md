@@ -1,4 +1,4 @@
-# Waypoint Ledger
+# Outbound
 
 Family PTO, trip, and expense tracker. One shared login, cloud-synced across
 every device, deployable to Netlify — and wrappable into a real iOS/Android

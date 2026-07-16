@@ -1584,7 +1584,7 @@ function AuthScreen() {
           <div style={{ width: 34, height: 34, borderRadius: 9, background: C.brass, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Plane size={18} color={C.bg} />
           </div>
-          <div style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 700, color: C.ink }}>Waypoint Ledger</div>
+          <div style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 700, color: C.ink }}>Outbound</div>
         </div>
         <div style={{ fontSize: 12, color: C.inkSoft, marginBottom: 18 }}>
           {mode === "signin" && "One shared family login. Sign in below."}
@@ -1847,7 +1847,7 @@ function WaypointLedger({ session }) {
               <Plane size={28} color={C.bg} />
             </div>
             <div>
-              <div style={{ fontFamily: "'Fraunces', serif", fontSize: 36, fontWeight: 700, color: C.cream, letterSpacing: "0.01em", lineHeight: 1.1 }}>Waypoint Ledger</div>
+              <div style={{ fontFamily: "'Fraunces', serif", fontSize: 36, fontWeight: 700, color: C.cream, letterSpacing: "0.01em", lineHeight: 1.1 }}>Outbound</div>
               <div style={{ fontFamily: "'Public Sans', sans-serif", fontSize: 14, color: statusColor, marginTop: 4 }}>Family PTO, trips & spending — {statusText}</div>
             </div>
           </div>

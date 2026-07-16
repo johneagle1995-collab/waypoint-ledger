@@ -1,6 +1,6 @@
 {
-  "appId": "com.yourfamily.waypointledger",
-  "appName": "Waypoint Ledger",
+  "appId": "com.eaglefamily.outbound",
+  "appName": "Outbound",
   "webDir": "dist",
   "server": {
     "androidScheme": "https"
