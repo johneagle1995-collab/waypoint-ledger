@@ -90,7 +90,7 @@ function resetDueThisCycle(member) {
   const job = currentJob(member);
   if (!job || job.policyType !== "fixed") return false;
   const anniv = lastAnniversary(job);
-  const hasReset = (member.ledger || []).some((e) => e.note === "Annual reset" && new Date(e.date) >= anniv);
+  const hasReset = (member.ledger || []).some((e) => e.days > 0 && new Date(e.date) >= anniv);
   return !hasReset;
 }
 function nightsBetween(start, end) {
@@ -672,6 +672,9 @@ function MemberPanel({ member, onClose, onUpdate, onDelete }) {
     const ledger = [...(member.ledger || []), { id: uid(), date: today, ...entry }];
     onUpdate({ ...member, ledger });
   };
+  const deleteLedger = (id) => {
+    onUpdate({ ...member, ledger: (member.ledger || []).filter((e) => e.id !== id) });
+  };
 
   const saveNewJob = () => {
     const rd = new Date(jobDraft.resetDateStr + "T00:00:00");
@@ -824,11 +827,14 @@ function MemberPanel({ member, onClose, onUpdate, onDelete }) {
                   <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: C.inkSoft, marginBottom: 6 }}>Ledger</div>
                   <div style={{ maxHeight: 160, overflowY: "auto", border: `1px solid ${C.paperAlt}`, borderRadius: 8 }}>
                     {(member.ledger || []).slice().reverse().map((e) => (
-                      <div key={e.id} style={{ display: "flex", justifyContent: "space-between", padding: "6px 10px", fontSize: 12, borderBottom: `1px solid ${C.paperAlt}` }}>
+                      <div key={e.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 10px", fontSize: 12, borderBottom: `1px solid ${C.paperAlt}` }}>
                         <span style={{ color: C.inkSoft }}>{fmtDate(e.date)} · {e.note}</span>
-                        <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: e.days < 0 ? C.coral : C.sage, fontWeight: 600 }}>
-                          {e.days > 0 ? "+" : ""}{fmtDays(e.days)}
-                        </span>
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: e.days < 0 ? C.coral : C.sage, fontWeight: 600 }}>
+                            {e.days > 0 ? "+" : ""}{fmtDays(e.days)}
+                          </span>
+                          <button onClick={() => deleteLedger(e.id)} title="Delete this entry" style={{ background: "none", border: "none", cursor: "pointer", color: C.creamDim, opacity: 0.7 }}><Trash2 size={12} /></button>
+                        </div>
                       </div>
                     ))}
                     {!(member.ledger || []).length && <div style={{ padding: 10, fontSize: 12, color: C.inkSoft }}>No entries yet.</div>}
@@ -847,9 +853,12 @@ function MemberPanel({ member, onClose, onUpdate, onDelete }) {
                   <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: C.inkSoft, marginBottom: 6 }}>Usage history</div>
                   <div style={{ maxHeight: 160, overflowY: "auto", border: `1px solid ${C.paperAlt}`, borderRadius: 8 }}>
                     {(member.ledger || []).slice().reverse().map((e) => (
-                      <div key={e.id} style={{ display: "flex", justifyContent: "space-between", padding: "6px 10px", fontSize: 12, borderBottom: `1px solid ${C.paperAlt}` }}>
+                      <div key={e.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "6px 10px", fontSize: 12, borderBottom: `1px solid ${C.paperAlt}` }}>
                         <span style={{ color: C.inkSoft }}>{fmtDate(e.date)} · {e.note}</span>
-                        <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: C.coral, fontWeight: 600 }}>{fmtDays(Math.abs(e.days))}</span>
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: C.coral, fontWeight: 600 }}>{fmtDays(Math.abs(e.days))}</span>
+                          <button onClick={() => deleteLedger(e.id)} title="Delete this entry" style={{ background: "none", border: "none", cursor: "pointer", color: C.creamDim, opacity: 0.7 }}><Trash2 size={12} /></button>
+                        </div>
                       </div>
                     ))}
                     {!(member.ledger || []).length && <div style={{ padding: 10, fontSize: 12, color: C.inkSoft }}>No trips logged yet.</div>}
