@@ -1840,26 +1840,26 @@ function WaypointLedger({ session }) {
   return (
     <div style={{ minHeight: "100vh", background: C.bg, backgroundImage: `radial-gradient(circle at 20% 0%, ${C.bgAlt2} 0%, ${C.bg} 60%)`, paddingTop: "env(safe-area-inset-top)", paddingBottom: "calc(60px + env(safe-area-inset-bottom))", paddingLeft: "env(safe-area-inset-left)", paddingRight: "env(safe-area-inset-right)" }}>
       {/* Header */}
-      <div style={{ padding: "26px 20px 20px", maxWidth: 920, margin: "0 auto" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 14 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 38, height: 38, borderRadius: 10, background: C.brass, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Plane size={20} color={C.bg} />
+      <div style={{ padding: "30px 20px 20px", maxWidth: 920, margin: "0 auto" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <div style={{ width: 52, height: 52, borderRadius: 14, background: C.brass, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <Plane size={28} color={C.bg} />
             </div>
             <div>
-              <div style={{ fontFamily: "'Fraunces', serif", fontSize: 26, fontWeight: 700, color: C.cream, letterSpacing: "0.01em" }}>Waypoint Ledger</div>
-              <div style={{ fontFamily: "'Public Sans', sans-serif", fontSize: 12, color: statusColor }}>Family PTO, trips & spending — {statusText}</div>
+              <div style={{ fontFamily: "'Fraunces', serif", fontSize: 36, fontWeight: 700, color: C.cream, letterSpacing: "0.01em", lineHeight: 1.1 }}>Waypoint Ledger</div>
+              <div style={{ fontFamily: "'Public Sans', sans-serif", fontSize: 14, color: statusColor, marginTop: 4 }}>Family PTO, trips & spending — {statusText}</div>
             </div>
           </div>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <Button variant="ghost" onClick={() => setShowAddMember(true)}><Users size={14} /> Family</Button>
-            <Button onClick={() => setOpenTripId("__new__")}><Plus size={14} /> New trip</Button>
-            <Button variant="ghost" onClick={() => supabase.auth.signOut()}><LogOut size={14} /></Button>
+          <div style={{ display: "flex", gap: 10, alignItems: "center", justifyContent: "center", flexWrap: "wrap", width: "100%", marginTop: 4 }}>
+            <Button variant="ghost" onClick={() => setShowAddMember(true)} style={{ fontSize: 15, padding: "10px 18px" }}><Users size={16} /> Family</Button>
+            <Button onClick={() => setOpenTripId("__new__")} style={{ fontSize: 15, padding: "10px 18px" }}><Plus size={16} /> New trip</Button>
+            <Button variant="ghost" onClick={() => supabase.auth.signOut()} style={{ fontSize: 15, padding: "10px 14px" }}><LogOut size={16} /></Button>
           </div>
         </div>
 
         {(saveStatus === "error" || saveStatus === "conflict") && (
-          <div style={{ marginTop: 12, padding: "10px 14px", background: "rgba(190,90,62,0.15)", border: `1px solid ${C.coral}`, borderRadius: 8, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
+          <div style={{ marginTop: 16, padding: "10px 14px", background: "rgba(190,90,62,0.15)", border: `1px solid ${C.coral}`, borderRadius: 8, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
             <span style={{ fontSize: 12.5, color: C.cream }}>
               {saveStatus === "error" ? "That last change couldn't be saved — check your connection." : "Someone else saved changes at the same time, so we reloaded the latest data. Your last edit may need to be redone."}
             </span>
@@ -1867,13 +1867,13 @@ function WaypointLedger({ session }) {
           </div>
         )}
 
-        <div style={{ marginTop: 6, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-          <label style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 10.5, color: C.creamDim }}>
+        <div style={{ marginTop: 14, display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
+          <label style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12.5, color: C.creamDim }}>
             Currency:
             <select
               value={data.currency || "USD"}
               onChange={(e) => persist({ ...data, currency: e.target.value })}
-              style={{ background: C.bgAlt, color: C.cream, border: `1px solid ${C.bgAlt2}`, borderRadius: 4, fontSize: 10.5, padding: "2px 4px" }}
+              style={{ background: C.bgAlt, color: C.cream, border: `1px solid ${C.bgAlt2}`, borderRadius: 5, fontSize: 12.5, padding: "4px 8px" }}
             >
               {["USD", "EUR", "GBP", "CAD", "AUD", "JPY", "MXN", "NZD", "CHF", "INR"].map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
